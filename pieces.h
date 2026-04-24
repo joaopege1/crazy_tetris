@@ -1,0 +1,121 @@
+#pragma once
+
+//MAIN PIECE
+int tpieceMain[9] = {
+    0,1,0,
+    1,1,1,
+    0,0,0
+};
+
+//VARIANTS
+int tpieceRight[9] = {
+    0,1,0,
+    0,1,1,
+    0,1,0
+};
+
+int tpieceLeft[9] = {
+    0,1,0,
+    1,1,0,
+    0,1,0
+};
+
+int tpieceDown[9] = {
+    0,0,0,
+    1,1,1,
+    0,1,0
+};
+
+//MAIN PIECE
+int snakeMain[9] = {
+    0,0,0,
+    1,1,1,
+    0,0,0
+};
+
+//VARIANTS
+int snakeSide[9] = {
+    0,1,0,
+    0,1,0,
+    0,1,0
+};
+
+//MAIN PIECE
+int spieceRight[9] = {
+    0,1,1,
+    1,1,0,
+    0,0,0
+};
+
+//VARIANTS
+int spieceRightVertical[9] = {
+    1,0,0,
+    1,1,0,
+    0,1,0
+};
+
+//MAIN PIECE
+int spieceLeft[9] = {
+    1,1,0,
+    0,1,1,
+    0,0,0
+};
+
+//VARIANTS
+int spieceLeftVertical[9] = {
+    0,1,0,
+    1,1,0,
+    1,0,0
+};
+
+//MAIN PIECE
+int lpieceRight[9] = {
+    0,1,0,
+    0,1,0,
+    0,1,1
+};
+
+//VARIANTS
+int lpieceRightDown[9] = {
+    0,0,0,
+    1,1,1,
+    1,0,0
+};
+
+int lpieceRightLeft[9] = {
+    1,1,0,
+    0,1,0,
+    0,1,0
+};
+
+int lpieceRightUp[9] = {
+    0,0,1,
+    1,1,1,
+    0,0,0
+};
+
+//MAIN PIECE
+int lpieceLeft[9] = {
+    0,1,0,
+    0,1,0,
+    1,1,0
+};
+
+//VARIANTS
+int lpieceLeftDown[9] = {
+    1,0,0,
+    1,1,1,
+    0,0,0
+};
+
+int lpieceLeftRight[9] = {
+    0,1,1,
+    0,1,0,
+    0,1,0
+};
+
+int lpieceLeftUp[9] = {
+    0,0,0,
+    1,1,1,
+    0,0,1
+};
