@@ -8,6 +8,26 @@ void CreateTile() {
   DrawRectangle(tilePositionX, tilePositionY, tileSize,tileSize, LIGHTGRAY);
 }
 
+void RealTiles(int array[], int size, int cols) {                             
+  int x = tilePositionX;                                                      
+  int y = tilePositionY;                                                      
+                                                                              
+  for (int i = 0; i < size; i++) {                                            
+    if (array[i] == 1) {
+      DrawRectangle(x, y, tileSize, tileSize, LIGHTGRAY);                     
+    }                                                                       
+    // sempre avança a posição, desenhando ou não                             
+
+    if ((i + 1) % cols == 0) {                                                
+      // nova linha: reseta X, avança Y                                     
+      x = tilePositionX;                                                      
+      y += tileSize;                                                          
+    } else {
+      x += tileSize;                                                          
+    }                                                                       
+  }
+}
+
 void MoveTile() {
 
   if (IsKeyDown(KEY_RIGHT)) {                                                 
@@ -29,7 +49,7 @@ void MoveTile() {
     }
   }
 
-  if (IsKeyDown(KEY_SPACE))   tilePositionY =  endOfBoard;
+  if (IsKeyDown(KEY_SPACE))   tilePositionY =  endOfBoard - tileSize;
 }
 
 void ShowPos() {                                                              

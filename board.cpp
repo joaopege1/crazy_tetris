@@ -11,7 +11,9 @@ void DrawBoard() {
         }
     }
 }
-
+void DrawNextTilesSpace() {
+    DrawRectangleLines(nextTileXPos, midRectHeight, nextTileHeight, nextTileWidth, WHITE);
+}
 
 //o x Nao pode ser menor que 180
 //o x Nao pode ser maior que 500
