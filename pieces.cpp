@@ -1,4 +1,9 @@
-#pragma once
+#include <cstdlib>
+#include "pieces.hpp"
+
+//RANDOM 
+int r = rand() % 5;
+
 
 //MAIN PIECE
 int tpieceMain[9] = {
@@ -119,3 +124,13 @@ int lpieceLeftUp[9] = {
     1,1,1,
     0,0,1
 };
+
+
+// array 2D: cada linha é uma peça
+int pieceList[5][9] = {                                                       
+  {0,1,0, 1,1,1, 0,0,0},  // snakeMain                                    
+  {1,1,0, 0,1,1, 0,0,0},  // spieceRight                                    
+  {0,1,1, 1,1,0, 0,0,0},  // spieceLeft                                     
+  {1,0,0, 1,1,1, 0,0,0},  // lpieceRight                                    
+  {0,0,1, 1,1,1, 0,0,0},  // lpieceLeft                                     
+};       

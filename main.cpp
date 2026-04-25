@@ -3,7 +3,8 @@
 #include "tiles.h"
 #include "board.h"
 #include "game.h"
-#include "pieces.h"
+#include "pieces.hpp"
+
 
 int main() {
     SetTargetFPS(40);
@@ -17,7 +18,7 @@ int main() {
         Gravity();
         MoveTile();
         ShowPos();
-        RealTiles(lpieceLeft, 9, 3);
+        RealTiles(pieceList[1], 9, 3);
 
         //----------------------------------------------------------------------------------
         //                                       Draw
