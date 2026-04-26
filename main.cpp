@@ -4,21 +4,25 @@
 #include "board.h"
 #include "game.h"
 #include "pieces.hpp"
+#include <cstdlib>
+#include <ctime>
 
 
 int main() {
+    srand(time(0));
     SetTargetFPS(40);
     InitWindow(screenWidth, screenHeight, "Tetris Dice");
 
     while (!WindowShouldClose()) {
+
+        DrawFPS(0,0);
 
         //----------------------------------------------------------------------------------
         //                                      Update
         //----------------------------------------------------------------------------------
         Gravity();
         MoveTile();
-        ShowPos();
-        RealTiles(pieceList[1], 9, 3);
+        //ShowPos();
 
         //----------------------------------------------------------------------------------
         //                                       Draw
@@ -27,7 +31,10 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
         DrawBoard();
-        DrawNextTilesSpace();
+        DrawNextPiecesSpace();
+        DrawDiceSpace();
+        DrawPieces(pieceList[r], 9, 3);
+        SwitchPieces();
         //CreateTile();
         EndDrawing();
     }
