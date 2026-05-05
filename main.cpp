@@ -20,8 +20,10 @@ int main() {
         //----------------------------------------------------------------------------------
         //                                      Update
         //----------------------------------------------------------------------------------
-        Gravity();
-        MoveTile();
+        if (!gameOver) {
+            Gravity();
+            MoveTile();
+        }
         //ShowPos();
 
         //----------------------------------------------------------------------------------
@@ -31,11 +33,26 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
         DrawBoard();
+        DrawStackedPieces();
+        if (!gameOver) {
+            DrawPieces(pieceList[r][rot], 9, 3);
+            SwitchPieces();
+        }
         DrawNextPiecesSpace();
         DrawDiceSpace();
-        DrawPieces(pieceList[r], 9, 3);
-        SwitchPieces();
-        //CreateTile();
+
+        if (gameOver) {
+            DrawRectangle(midRectWidth, midRectHeight + rectHeight/2 - 50,
+                          rectWidth, 100, Fade(BLACK, 0.85f));
+            const char* msg = "GAME OVER";
+            int fontSize = 40;
+            int textW = MeasureText(msg, fontSize);
+            DrawText(msg,
+                     midRectWidth + (rectWidth - textW) / 2,
+                     midRectHeight + rectHeight/2 - fontSize/2,
+                     fontSize, RED);
+        }
+
         EndDrawing();
     }
 

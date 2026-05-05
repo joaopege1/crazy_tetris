@@ -15,7 +15,7 @@ void DrawPieces(int array[], int size, int cols) {
                                                                               
   for (int i = 0; i < size; i++) {                                            
     if (array[i] == 1) {
-      DrawRectangle(x, y, tileSize, tileSize, LIGHTGRAY);                     
+      DrawRectangle(x, y, tileSize, tileSize, BLUE);                     
     }                                                                       
     if ((i + 1) % cols == 0) {                                                
       x = piecePositionX;                                                      
@@ -26,28 +26,61 @@ void DrawPieces(int array[], int size, int cols) {
   }
 }
 
-void MoveTile() {
+// DAS: primeiro toque move imediato; segurando, espera DAS frames
+// e depois repete a cada ARR frames. A 40 FPS: ~200ms espera, ~50ms repeat.
+static const int DAS = 8;
+static const int ARR = 2;
 
-  if (IsKeyDown(KEY_RIGHT)) {                                                 
-      if (!isWall(piecePositionX + tileSize, piecePositionY, pieceList[r], 3)) {                   
+static bool autoRepeat(int &holdFrames, bool keyDown) {
+  bool fire = false;
+  if (keyDown) {
+    if (holdFrames == 0) fire = true;
+    else if (holdFrames >= DAS && (holdFrames - DAS) % ARR == 0) fire = true;
+    holdFrames++;
+  } else {
+    holdFrames = 0;
+  }
+  return fire;
+}
+
+void MoveTile() {
+  static int leftHold = 0, rightHold = 0, downHold = 0;
+
+  if (autoRepeat(rightHold, IsKeyDown(KEY_RIGHT))) {
+      if (!isWall(piecePositionX + tileSize, piecePositionY, pieceList[r][rot], 3) &&
+          !isFloor(piecePositionX + tileSize, piecePositionY, pieceList[r][rot], 3)) {
           piecePositionX += tileSize;
-      }                                                                         
-  }                                                                            
-  if (IsKeyDown(KEY_LEFT)){
-      if (!isWall(piecePositionX - tileSize, piecePositionY, pieceList[r], 3)){
+      }
+  }
+  if (autoRepeat(leftHold, IsKeyDown(KEY_LEFT))) {
+      if (!isWall(piecePositionX - tileSize, piecePositionY, pieceList[r][rot], 3) &&
+          !isFloor(piecePositionX - tileSize, piecePositionY, pieceList[r][rot], 3)){
           piecePositionX -= tileSize;
       }
-    }
-
-  if (IsKeyDown(KEY_UP))      piecePositionY -= tileSize; // This will be used to rotate the piece in the future.
-  
-  if (IsKeyDown(KEY_DOWN)){
-      if (!isWall(piecePositionX, piecePositionY + tileSize, pieceList[r], 3)){
-      piecePositionY += tileSize;
-    }
   }
 
-  if (IsKeyDown(KEY_SPACE))   piecePositionY =  endOfBoard - tileSize;
+  if (IsKeyPressed(KEY_UP)) {
+      int oldRot = rot;
+      rot = (rot + 1) % 4;
+      if (isWall(piecePositionX, piecePositionY, pieceList[r][rot], 3) ||
+          isFloor(piecePositionX, piecePositionY, pieceList[r][rot], 3)) {
+          rot = oldRot;
+      }
+  }
+
+  if (autoRepeat(downHold, IsKeyDown(KEY_DOWN))) {
+      if (!isWall(piecePositionX, piecePositionY + tileSize, pieceList[r][rot], 3) &&
+          !isFloor(piecePositionX, piecePositionY + tileSize, pieceList[r][rot], 3)){
+          piecePositionY += tileSize;
+      }
+  }
+
+  if (IsKeyPressed(KEY_SPACE)){
+      while (!isWall(piecePositionX, piecePositionY + tileSize, pieceList[r][rot], 3) &&
+             !isFloor(piecePositionX, piecePositionY + tileSize, pieceList[r][rot], 3)){
+          piecePositionY += tileSize;
+      }
+  }
 }
 
 void ShowPos() {                                                              

@@ -1,4 +1,5 @@
 #pragma once
 
 extern int r;
-extern int pieceList[5][9];
+extern int rot;
+extern int pieceList[5][4][9];
